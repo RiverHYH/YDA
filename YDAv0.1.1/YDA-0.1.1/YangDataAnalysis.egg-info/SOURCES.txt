@@ -1,0 +1,9 @@
+setup.py
+YangDataAnalysis/Environment.py
+YangDataAnalysis/Normalisers.py
+YangDataAnalysis/Visual.py
+YangDataAnalysis/__init__.py
+YangDataAnalysis.egg-info/PKG-INFO
+YangDataAnalysis.egg-info/SOURCES.txt
+YangDataAnalysis.egg-info/dependency_links.txt
+YangDataAnalysis.egg-info/top_level.txt
