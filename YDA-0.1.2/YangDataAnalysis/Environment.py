@@ -1,25 +1,27 @@
 import importlib.util
 import sys
 
-def install_and_import(package):
+def install_and_import(package, top_level_module_name, short_name):
     import subprocess
-    subprocess.check_call([sys.executable, "-m", "pip", "install", package])
-    globals()[package] = importlib.import_module(package)
+    cmd = [sys.executable, "-m", "pip", "install", package]
+    print(f"Running command: {cmd}")
+    subprocess.check_call(cmd)
+    globals()[short_name] = importlib.import_module(top_level_module_name)
 
-packages = {"pandas": "pd", "numpy": "np", "sklearn": "sklearn", "matplotlib": "plt", "seaborn": "sns"}
+packages = {"pandas": ["pandas", "pd"], "numpy": ["numpy", "np"], "scikit-learn": ["sklearn", "sklearn"], "matplotlib": ["matplotlib", "plt"], "seaborn": ["seaborn", "sns"]}
 
-for package, short_name in packages.items():
-    if importlib.util.find_spec(package) is None:
-        user_input = input(f"{package} is not installed.Do you want to install it?(y/n)")
+for package, (top_level_module_name, short_name) in packages.items():
+    if importlib.util.find_spec(top_level_module_name) is None:
+        user_input = input(f"{package} is not installed. Do you want to install it? (y/n)")
         if user_input.lower() == 'y':
             print(f"Installing {package}...")
-            install_and_import(package)
+            install_and_import(package, top_level_module_name, short_name)
             print(f"{package} installed!")
         else:
-            print(f"Installation Ceased! Thank You!")
+            print(f"Installation ceased! Thank you!")
     else:
         print(f"{package} module is imported as {short_name}")
-        globals()[short_name] = importlib.import_module(package)
+        globals()[short_name] = importlib.import_module(top_level_module_name)
         
         
         
